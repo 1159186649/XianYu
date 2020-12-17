@@ -1,17 +1,20 @@
 .DS_Store
 node_modules
 /dist
-
+django-pass.txt
+/mystie/security_key.py
 
 # local env files
 .env.local
 .env.*.local
+*.pyc
 
 # Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.pyc
 
 # Editor directories and files
 .idea
@@ -21,3 +24,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.pyc
