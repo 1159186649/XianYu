@@ -1,7 +1,15 @@
 <template>
-  <div class="recomded-outer">
+  <div class="sort-outer">
+    <div class="sort-title">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>分类</el-breadcrumb-item>
+        <el-breadcrumb-item>{{
+          hardWareName[hardWareType]
+        }}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <el-divider></el-divider>
-    <div class="recomded-title"><span>推荐产品</span></div>
     <el-row :gutter="20">
       <el-col
         :span="6"
@@ -30,14 +38,32 @@ export default {
   data() {
     return {
       length: 15,
+      hardWareType: this.$route.query.type,
+      productID: ["123"],
+      hardWareName: {
+        cpu: "CPU",
+        motherBoard: "主板",
+        laptop: "笔记本电脑",
+        graphicsCard: "显卡",
+        powerSupply: "电源",
+        case: "机箱",
+        ram: "内存",
+        hardDisk: "硬盘",
+        fan: "风扇",
+      },
       imgurls: [
         require("../../assets/laptop.jpg"),
         require("../../assets/graphicCard.jpg"),
       ],
       titles: ["ROG Zephyrus Duo 15"],
       discribes: ["GeForce® RTX 2080 SUPER™ GPU"],
-      productID: ["123"],
     };
+  },
+  mounted() {
+    console.log(this.hardWareType);
+  },
+  beforeUpdate() {
+    this.hardWareType = this.$route.query.type;
   },
   methods: {
     jump(index) {
@@ -52,14 +78,19 @@ export default {
 </script>
 
 <style>
-.recomded-title {
-  font-family: "等线";
-  font-size: 30px;
-  margin-left: 2%;
-}
-.recomded-outer {
+.sort-outer {
   width: 96%;
   margin-left: 2%;
+}
+.sort-title {
+  font-size: 50px;
+  margin-left: 2%;
+  margin-top: 30px;
+}
+.el-breadcrumb {
+  font-size: 20px;
+  line-height: 1;
+  font-family: "等线";
 }
 .card {
   background: rgb(245, 245, 245);

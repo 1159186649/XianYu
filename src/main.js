@@ -5,16 +5,28 @@ import "element-ui/lib/theme-chalk/index.css";
 import VueRouter from "vue-router";
 import axios from "axios";
 import Home from "./components/Home/Home";
-
+import Sort from "./components/sort/Sort";
+import Product from "./components/product/Product";
+import Shopcar from "./components/shopcar/Shopcar";
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err);
+};
 
 let router = new VueRouter({
   mode: "history",
-  routes: [{ path: "/Home", name: "app", component: Home }],
+  routes: [
+    { path: "/Home", name: "app", component: Home },
+    { path: "/", name: "app", component: Home },
+    { path: "/Sort", name: "app", component: Sort },
+    { path: "/Product", name: "app", component: Product },
+    { path: "/Shopcar", name: "app", component: Shopcar },
+  ],
 });
 
 new Vue({

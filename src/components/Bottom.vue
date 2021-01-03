@@ -20,6 +20,8 @@ export default {};
   background-color: #242424;
   height: 4rem;
   color: white;
+  bottom: 0;
+  margin-top: 5rem;
 }
 .el-divider__text {
   position: absolute;

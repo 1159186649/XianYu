@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <router-view></router-view>
     <TopNav></TopNav>
-    <Home></Home>
+    <router-view>
+      <Home></Home>
+    </router-view>
     <Bottom></Bottom>
     <BackToTop></BackToTop>
   </div>
@@ -21,6 +22,10 @@ export default {
     Bottom,
     BackToTop,
   },
+  data() {
+    return {};
+  },
+  methods: {},
 };
 </script>
 
