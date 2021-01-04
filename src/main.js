@@ -8,6 +8,10 @@ import Home from "./components/Home/Home";
 import Sort from "./components/sort/Sort";
 import Product from "./components/product/Product";
 import Shopcar from "./components/shopcar/Shopcar";
+import Login from "./components/login/Login";
+import CustomerLogin from "./components/login/Customer";
+import SellerLogin from "./components/login/Seller";
+import Register from "./components/register/Register";
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 
@@ -26,6 +30,22 @@ let router = new VueRouter({
     { path: "/Sort", name: "app", component: Sort },
     { path: "/Product", name: "app", component: Product },
     { path: "/Shopcar", name: "app", component: Shopcar },
+    { path: "/Login", name: "app", component: Login },
+    {
+      path: "/Login/Customer",
+      name: "app",
+      component: CustomerLogin,
+    },
+    {
+      path: "/Login/Seller",
+      name: "app",
+      component: SellerLogin,
+    },
+    {
+      path: "/Register",
+      name: "app",
+      component: Register,
+    },
   ],
 });
 

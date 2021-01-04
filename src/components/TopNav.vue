@@ -58,7 +58,7 @@
           >
         </el-col>
         <el-col :xs="{ span: 6, offset: 0 }" :lg="{ span: 3, offset: 11 }">
-          <el-menu-item index="4"> 登录</el-menu-item>
+          <el-menu-item index="4" @click="goLogin"> 登录</el-menu-item>
         </el-col>
       </el-row>
     </el-menu>
@@ -104,6 +104,11 @@ export default {
     goshopcar() {
       this.$router.push({
         path: "/Shopcar",
+      });
+    },
+    goLogin() {
+      this.$router.push({
+        path: "/Login",
       });
     },
   },
