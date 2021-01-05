@@ -32,8 +32,8 @@
         <el-col :span="7" :offset="3">
           <div class="registerButton">
             <el-button type="primary" plain @click="gotoRegister"
-              >注 册</el-button
-            >
+              >注 册
+            </el-button>
           </div>
         </el-col>
       </el-row>
@@ -42,6 +42,9 @@
 </template>
 
 <script>
+// import Global from "../../global";
+import pubsub from "pubsub-js";
+// import Top from "../TopNav";
 export default {
   data() {
     return {
@@ -63,6 +66,8 @@ export default {
       ) {
         alert("用户名或密码不正确");
       } else {
+        pubsub.publishSync("LoginStatus", 1);
+        pubsub.publishSync("LoginId", this.inputid);
         this.$router.push({
           path: "/",
         });

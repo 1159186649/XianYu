@@ -48,17 +48,45 @@
           </el-submenu>
         </el-col>
         <el-col :xs="{ span: 6, offset: 0 }" :lg="{ span: 3, offset: 0 }">
-          <el-menu-item index="3"
-            ><div class="shopcar" @click="goshopcar">
-              <div class="shopcar-icon">
-                <i class="el-icon-shopping-cart-full"></i>
+          <div v-if="flag === 2">
+            <el-menu-item index="3" disabled>
+              <div class="shopcar" @click="goshopcar">
+                <div class="shopcar-icon">
+                  <i class="el-icon-shopping-cart-full"></i>
+                </div>
+                <div class="shopcar-text">购物车</div>
               </div>
-              <div class="shopcar-text">购物车</div>
-            </div></el-menu-item
-          >
+            </el-menu-item>
+          </div>
+          <div v-else>
+            <el-menu-item index="3">
+              <div class="shopcar" @click="goshopcar">
+                <div class="shopcar-icon">
+                  <i class="el-icon-shopping-cart-full"></i>
+                </div>
+                <div class="shopcar-text">购物车</div>
+              </div>
+            </el-menu-item>
+          </div>
         </el-col>
         <el-col :xs="{ span: 6, offset: 0 }" :lg="{ span: 3, offset: 11 }">
-          <el-menu-item index="4" @click="goLogin"> 登录</el-menu-item>
+          <div v-if="this.flag === 2" class="sellerHome">
+            <el-menu-item index="4" @click="goSellerHome">
+              <i class="el-icon-s-shop"></i>
+              <span>{{ name }}</span>
+            </el-menu-item>
+          </div>
+          <div v-else-if="this.flag === 1" class="userHome">
+            <el-menu-item index="4" @click="goUserHome">
+              <i class="el-icon-s-home"></i>
+              <span>{{ name }}</span>
+            </el-menu-item>
+          </div>
+          <div v-else>
+            <el-menu-item index="4" @click="goLogin" style="text-align: center">
+              登录
+            </el-menu-item>
+          </div>
         </el-col>
       </el-row>
     </el-menu>
@@ -66,10 +94,14 @@
 </template>
 
 <script>
+// import Global from "../global";
+import pubsub from "pubsub-js";
 export default {
   name: "TopNav",
   data() {
     return {
+      flag: 0,
+      name: "",
       activeIndex: "1",
       hadwareType: [
         "笔记本电脑",
@@ -95,6 +127,15 @@ export default {
       ],
     };
   },
+  mounted() {
+    pubsub.subscribe("LoginStatus", (e, msg) => {
+      console.log(e, msg);
+      this.flag = msg;
+    });
+    pubsub.subscribe("LoginId", (e, msg) => {
+      this.name = msg;
+    });
+  },
   methods: {
     home() {
       this.$router.push({
@@ -102,15 +143,36 @@ export default {
       });
     },
     goshopcar() {
-      this.$router.push({
-        path: "/Shopcar",
-      });
+      if (this.flag == 1) {
+        this.$router.push({
+          path: "/Shopcar",
+        });
+      } else {
+        alert("请先登录");
+        console.log(this.flag);
+        // this.$router.push({
+        //   path: "/Login",
+        // });
+      }
     },
     goLogin() {
       this.$router.push({
         path: "/Login",
       });
     },
+    goUserHome() {
+      console.log("user");
+    },
+    goSellerHome() {
+      console.log("seller");
+    },
+  },
+  setFlag(t) {
+    this.flag1 = t;
+    console.log(this.data["flag1"]);
+  },
+  setName(t) {
+    this.name = t;
   },
 };
 </script>
@@ -137,5 +199,13 @@ export default {
 
 .logo > img {
   height: 100%;
+}
+.userHome {
+  color: white;
+  text-align: center;
+}
+.sellerHome {
+  color: white;
+  text-align: center;
 }
 </style>

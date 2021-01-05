@@ -31,9 +31,9 @@
         </el-col>
         <el-col :span="7" :offset="3">
           <div class="registerButton">
-            <el-button type="primary" plain @click="goRegister"
-              >注 册</el-button
-            >
+            <el-button type="primary" plain @click="goRegister">
+              注 册
+            </el-button>
           </div>
         </el-col>
       </el-row>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import pubsub from "pubsub-js";
 export default {
   data() {
     return {
@@ -63,6 +64,8 @@ export default {
       ) {
         alert("用户名或密码不正确");
       } else {
+        pubsub.publishSync("LoginStatus", 2);
+        pubsub.publishSync("LoginId", this.inputid);
         this.$router.push({
           path: "/",
         });
