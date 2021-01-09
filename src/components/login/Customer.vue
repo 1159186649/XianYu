@@ -42,9 +42,8 @@
 </template>
 
 <script>
-// import Global from "../../global";
 import pubsub from "pubsub-js";
-// import Top from "../TopNav";
+import { getUserLogin } from "../../api/api.js";
 export default {
   data() {
     return {
@@ -52,9 +51,23 @@ export default {
       inputpassword: "",
       id: "123",
       password: "123",
+      user: [],
+      flag: 0,
+      length: 0,
     };
   },
   methods: {
+    getInfo() {
+      getUserLogin().then((response) => {
+        console.log("begain");
+        this.user = response.data;
+        console.log(this.user);
+        this.length = this.user.length;
+        console.log("len" + this.length);
+        // console.log("0" + this.user[0]["user_id"]);
+        // console.log("1" + this.user[0]["user_pass"]);
+      });
+    },
     Login() {
       if (this.inputid == "") {
         alert("用户名不能为空");
@@ -62,12 +75,15 @@ export default {
         alert("密码不能为空");
       } else if (
         this.inputid != this.id ||
-        this.inputpassword != this.password
+        this.inputpassword != this.password ||
+        this.flag == 0
       ) {
         alert("用户名或密码不正确");
       } else {
         pubsub.publishSync("LoginStatus", 1);
         pubsub.publishSync("LoginId", this.inputid);
+        pubsub.publishSync("UserLogin", this.flag);
+        pubsub.publishSync("UserName", this.name);
         this.$router.push({
           path: "/",
         });
@@ -78,6 +94,20 @@ export default {
         path: "/Register",
       });
     },
+  },
+  beforeUpdate() {
+    for (var i = 0; i < this.length; i++) {
+      if (this.user[i]["user_id"] == this.inputid) {
+        this.id = this.inputid;
+        this.password = this.user[i]["user_pass"];
+        this.flag = 1;
+        break;
+      }
+    }
+  },
+  mounted() {
+    this.flag = 0;
+    this.getInfo();
   },
 };
 </script>

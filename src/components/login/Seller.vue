@@ -43,6 +43,7 @@
 
 <script>
 import pubsub from "pubsub-js";
+import { getSellerLogin } from "../../api/api.js";
 export default {
   data() {
     return {
@@ -50,9 +51,19 @@ export default {
       inputpassword: "",
       id: "123",
       password: "123",
+      seller: [],
+      flag: 0,
+      length: 0,
     };
   },
   methods: {
+    getInfo() {
+      getSellerLogin().then((response) => {
+        console.log("begain");
+        this.seller = response.data;
+        this.length = this.seller.length;
+      });
+    },
     Login() {
       if (this.inputid == "") {
         alert("用户名不能为空");
@@ -60,7 +71,8 @@ export default {
         alert("密码不能为空");
       } else if (
         this.inputid != this.id ||
-        this.inputpassword != this.password
+        this.inputpassword != this.password ||
+        this.flag == 0
       ) {
         alert("用户名或密码不正确");
       } else {
@@ -73,9 +85,23 @@ export default {
     },
     goRegister() {
       this.$router.push({
-        path: "/Register",
+        path: "/RegisterSeller",
       });
     },
+  },
+  beforeUpdate() {
+    for (var i = 0; i < this.length; i++) {
+      if (this.seller[i]["seller_id"] == this.inputid) {
+        this.id = this.inputid;
+        this.password = this.seller[i]["seller_pass"];
+        this.flag = 1;
+        break;
+      }
+    }
+  },
+  mounted() {
+    this.flag = 0;
+    this.getInfo();
   },
 };
 </script>

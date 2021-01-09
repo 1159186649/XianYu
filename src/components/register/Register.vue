@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { UserRegister } from "../../api/api.js";
 export default {
   data() {
     return {
@@ -51,14 +52,28 @@ export default {
         userEmail: "",
         userAddress: "",
         userPassword: "",
-        Identity: "",
+        userTele: "",
+        resource: "",
       },
     };
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
-      console.log(this.Identity);
+      console.log(this.resource);
+      if (this.form.resource == "用户") {
+        UserRegister(
+          this.form.userId,
+          this.form.userPassword,
+          this.form.userAddress,
+          this.form.userEmail,
+          this.form.userTele
+        ).then((Response) => {
+          console.log(Response);
+        });
+        console.log("user submit!");
+      } else {
+        console.log("seller submit!");
+      }
     },
     back() {
       this.$router.push({
@@ -67,7 +82,7 @@ export default {
     },
   },
   beforeUpdate() {
-    console.log(this.Identity);
+    console.log(this.form.resource);
   },
 };
 </script>

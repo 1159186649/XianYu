@@ -11,7 +11,10 @@ import Shopcar from "./components/shopcar/Shopcar";
 import Login from "./components/login/Login";
 import CustomerLogin from "./components/login/Customer";
 import SellerLogin from "./components/login/Seller";
-import Register from "./components/register/Register";
+// import Register from "./components/register/Register";
+import Individual from "./components/individual/Individual";
+import CustomerRegister from "./components/register/customer/Register";
+import SellerRegister from "./components/register/seller/Register";
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 
@@ -41,10 +44,25 @@ let router = new VueRouter({
       name: "app",
       component: SellerLogin,
     },
+    // {
+    //   path: "/Register",
+    //   name: "app",
+    //   component: Register,
+    // },
+    {
+      path: "/Individual",
+      name: "app",
+      component: Individual,
+    },
     {
       path: "/Register",
       name: "app",
-      component: Register,
+      component: CustomerRegister,
+    },
+    {
+      path: "/RegisterSeller",
+      name: "app",
+      component: SellerRegister,
     },
   ],
 });

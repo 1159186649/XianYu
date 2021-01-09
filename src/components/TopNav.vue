@@ -150,9 +150,9 @@ export default {
       } else {
         alert("请先登录");
         console.log(this.flag);
-        // this.$router.push({
-        //   path: "/Login",
-        // });
+        this.$router.push({
+          path: "/Login",
+        });
       }
     },
     goLogin() {
@@ -161,10 +161,17 @@ export default {
       });
     },
     goUserHome() {
-      console.log("user");
+      console.log(this.name);
+
+      this.$router.push({
+        path: "/Individual",
+      });
     },
     goSellerHome() {
       console.log("seller");
+      this.$router.push({
+        path: "/Individual",
+      });
     },
   },
   setFlag(t) {

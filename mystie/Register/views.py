@@ -10,3 +10,8 @@ from Register.serializer import UserSerializer
 class Register(viewsets.ModelViewSet):
     queryset = Userinfo.objects.all()
     serializer_class = UserSerializer
+
+
+class LoginCustomer(viewsets.ModelViewSet):
+    queryset = Userinfo.objects.all()
+    serializer_class = UserSerializer

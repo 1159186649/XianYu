@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'corsheaders',
-    'Register',
+    'Products',
+    'RegisterUser',
+    'RegisterSeller',
     'rest_framework',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
@@ -74,6 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mystie.wsgi.application'
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/dist/assets"),
     os.path.join(BASE_DIR, "frontend/dist/static")
 ]
 
